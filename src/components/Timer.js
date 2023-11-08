@@ -1,19 +1,20 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import { useEffect } from "react";
 
-function Timer({ dispatch, secondRemaining }) {
-  const mins = Math.floor(secondRemaining / 60);
-  const seconds = secondRemaining % 60;
+function Timer({ dispatch, secondsRemaining }) {
+  const mins = Math.floor(secondsRemaining / 60);
+  const seconds = secondsRemaining % 60;
 
-  useEffect(function () {
-    const id = setInterval(function () {
-      dispatch({ type: "tick" });
-    }, 1000);
+  useEffect(
+    function () {
+      const id = setInterval(function () {
+        dispatch({ type: "tick" });
+      }, 1000);
 
-    return () => clearInterval(id);
-  }, []);
+      return () => clearInterval(id);
+    },
+    [dispatch]
+  );
 
-  // return <div className="timer">05:00</div>;
   return (
     <div className="timer">
       {mins < 10 && "0"}
